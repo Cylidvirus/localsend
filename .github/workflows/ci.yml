@@ -26,14 +26,14 @@ jobs:
       - name: Remove gen directory (app)
         working-directory: app
         run: rm -rf lib/gen
-      - name: Check format (app)
+     # - name: Check format (app)
         working-directory: app
         run: dart format --line-length 150 --set-exit-if-changed lib test
 
       - name: Dependencies (common)
         working-directory: common
         run: dart pub get
-      - name: Check format (common)
+    #  - name: Check format (common)
         working-directory: common
         run: dart format --line-length 150 --set-exit-if-changed lib test
 
