@@ -1,0 +1,30 @@
+name: Build Windows ARM64
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.22.0"
+
+      - name: Enable Windows Desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows ARM64 release
+        run: flutter build windows --release --target-platform=windows-arm64
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LocalSend-Windows-ARM64
+          path: build/windows/arm64/runner/Release
