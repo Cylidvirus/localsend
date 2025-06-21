@@ -6,13 +6,15 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.22.0"
+          flutter-version: "3.22.0"  # 或者改为你项目使用的版本
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
@@ -20,11 +22,12 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build Windows ARM64 release
+      - name: Build Windows ARM64
         run: flutter build windows --release --target-platform=windows-arm64
 
-      - name: Upload build artifact
+      - name: Upload build output
         uses: actions/upload-artifact@v4
         with:
           name: LocalSend-Windows-ARM64
           path: build/windows/arm64/runner/Release
+
